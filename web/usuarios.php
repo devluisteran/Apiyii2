@@ -49,8 +49,7 @@ $(document).ready(function () {
     console.log("Documento listo, cargando usuarios...");
     
     // Verificar la URL de la API
-    const apiUrl = "index.php?r=api/user/index";
-    console.log("Llamando a:", apiUrl);
+
 
 
  
@@ -59,7 +58,7 @@ fetch("index.php?r=api/user/index")
     if (!response.ok) {
         throw new Error(`Error HTTP: ${response.status}`);
     }
-    return response.json(); // directamente el JSON (array)
+    return response.json();
 })
 .then(usuarios => {
     console.log("Usuarios recibidos:", usuarios);
@@ -87,18 +86,18 @@ fetch("index.php?r=api/user/index")
 const urlParams = new URLSearchParams(window.location.search);
 const sortParam = urlParams.get('sort'); // "asc" o "desc"
 
-// Definir orden inicial: por nombre (columna índice 1) ascendente o descendente
+// Definir orden inicial: por nombre
 let order = [];
 if (sortParam === 'asc') {
-    order = [[1, 'asc']];  // Columna 1 = Nombre
+    order = [[1, 'asc']]; 
 } else if (sortParam === 'desc') {
     order = [[1, 'desc']];
 } else {
-    order = [[0, 'desc']]; // Por defecto ordenar por ID descendente (como antes)
+    order = [[0, 'desc']]; // Por defecto ordenar por ID descendente
 }     
 
 
-    // Inicializar DataTable con los datos
+    // Inicializar DataTable
     $('#tablaUsuarios').DataTable({
         data: usuarios.data,
         columns: [
@@ -116,10 +115,10 @@ if (sortParam === 'asc') {
     });
 })
 .catch(error => {
-    console.error("Error completo:", error);
+    console.error("Error :", error);
    // alert("Error al cargar usuarios: " + error.message);
     
-    // Mostrar mensaje en la tabla
+    
     $('#tablaUsuarios tbody').html(`
         <tr>
             <td colspan="4" class="text-center text-danger">
